@@ -1,8 +1,20 @@
+variable "module_source" {
+  description = "A source of module"
+  type        = string
+  default     = "diodonfrost/lambda-scheduler-stop-start/aws"
+}
+
+variable "module_version" {
+  description = "Version of module to use"
+  type        = string
+  default     = "4.2.0"
+}
+
 variable "schedulers" {
   description = "A map of scheduler configurations"
   type = map(object({
     name                         = string
-    schedule_expression          = optional(string, "cron(0 22 ? * MON-FRI *)")
+    schedule_expression          = optional(string, null)
     schedule_expression_timezone = optional(string, "UTC")
     scheduler_excluded_dates     = optional(list(string), [])
     custom_iam_role_arn          = optional(string, null)
@@ -20,6 +32,8 @@ variable "schedulers" {
     ec2_schedule                    = optional(bool, false)
     documentdb_schedule             = optional(bool, false)
     ecs_schedule                    = optional(bool, false)
+    scheduler_schedule              = optional(bool, false)
+    scheduler_schedule_names        = optional(list(string), [])
     rds_schedule                    = optional(bool, false)
     redshift_schedule               = optional(bool, false)
     cloudwatch_alarm_schedule       = optional(bool, false)

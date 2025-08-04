@@ -20,6 +20,8 @@ module "multi_schedulers" {
       autoscaling_schedule         = true
       ec2_schedule                 = true
       ecs_schedule                 = true
+      scheduler_schedule           = true
+      scheduler_schedule_names     = ["schedule1", "schedule2"]
       rds_schedule                 = true
       redshift_schedule            = true
       documentdb_schedule          = true
@@ -38,6 +40,8 @@ module "multi_schedulers" {
       autoscaling_schedule         = true
       ec2_schedule                 = true
       ecs_schedule                 = true
+      scheduler_schedule           = true
+      scheduler_schedule_names     = ["schedule1", "schedule2"]
       rds_schedule                 = true
       redshift_schedule            = true
       documentdb_schedule          = true
@@ -82,7 +86,7 @@ module "multi_schedulers" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_schedulers"></a> [schedulers](#input\_schedulers) | A map of scheduler configurations | <pre>map(object({<br/>    name                         = string<br/>    schedule_expression          = optional(string, "cron(0 22 ? * MON-FRI *)")<br/>    schedule_expression_timezone = optional(string, "UTC")<br/>    scheduler_excluded_dates     = optional(list(string), [])<br/>    custom_iam_role_arn          = optional(string, null)<br/>    kms_key_arn                  = optional(string, null)<br/>    aws_regions                  = optional(list(string), null)<br/>    runtime                      = optional(string, "python3.13")<br/>    schedule_action              = optional(string, "stop")<br/>    resources_tag                = optional(map(string), null)<br/>    scheduler_tag = optional(map(string), {<br/>      "key"   = "tostop"<br/>      "value" = "true"<br/>    })<br/>    autoscaling_schedule            = optional(bool, false)<br/>    autoscaling_terminate_instances = optional(bool, false)<br/>    ec2_schedule                    = optional(bool, false)<br/>    documentdb_schedule             = optional(bool, false)<br/>    ecs_schedule                    = optional(bool, false)<br/>    rds_schedule                    = optional(bool, false)<br/>    redshift_schedule               = optional(bool, false)<br/>    cloudwatch_alarm_schedule       = optional(bool, false)<br/>    transfer_schedule               = optional(bool, false)<br/>    tags                            = optional(map(any), null)<br/>  }))</pre> | `{}` | no |
+| <a name="input_schedulers"></a> [schedulers](#input\_schedulers) | A map of scheduler configurations | <pre>map(object({<br/>    name                         = string<br/>    schedule_expression          = optional(string, "cron(0 22 ? * MON-FRI *)")<br/>    schedule_expression_timezone = optional(string, "UTC")<br/>    scheduler_excluded_dates     = optional(list(string), [])<br/>    custom_iam_role_arn          = optional(string, null)<br/>    kms_key_arn                  = optional(string, null)<br/>    aws_regions                  = optional(list(string), null)<br/>    runtime                      = optional(string, "python3.13")<br/>    schedule_action              = optional(string, "stop")<br/>    resources_tag                = optional(map(string), null)<br/>    scheduler_tag = optional(map(string), {<br/>      "key"   = "tostop"<br/>      "value" = "true"<br/>    })<br/>    autoscaling_schedule            = optional(bool, false)<br/>    autoscaling_terminate_instances = optional(bool, false)<br/>    ec2_schedule                    = optional(bool, false)<br/>    documentdb_schedule             = optional(bool, false)<br/>    ecs_schedule                    = optional(bool, false)    scheduler_schedule                    = optional(bool, false)    scheduler_schedule_names                    = optional(list(string), [])<br/>    rds_schedule                    = optional(bool, false)<br/>    redshift_schedule               = optional(bool, false)<br/>    cloudwatch_alarm_schedule       = optional(bool, false)<br/>    transfer_schedule               = optional(bool, false)<br/>    tags                            = optional(map(any), null)<br/>  }))</pre> | `{}` | no |
 
 ## Outputs
 
