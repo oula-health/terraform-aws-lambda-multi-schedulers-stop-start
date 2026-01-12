@@ -34,11 +34,62 @@ variable "schedulers" {
     ecs_schedule                    = optional(bool, false)
     scheduler_schedule              = optional(bool, false)
     scheduler_schedule_names        = optional(list(string), [])
+    elasticache_valkey_schedule     = optional(bool, false)
+    elasticache_valkey_replication_groups_to_delete = optional(list(string), [])
+    elasticache_valkey_replication_groups_to_create = optional(
+      list(object({
+      # Required strings
+      ReplicationGroupId          = string
+      ReplicationGroupDescription = string
+      CacheNodeType               = string
+      Engine                      = string
+      EngineVersion               = string
+      CacheParameterGroupName     = string
+      CacheSubnetGroupName        = string
+      NetworkType                 = string
+      ClusterMode                 = string
+
+      # Optional booleans
+      AutomaticFailoverEnabled    = optional(bool)
+      MultiAZEnabled              = optional(bool)
+      TransitEncryptionEnabled    = optional(bool)
+      AtRestEncryptionEnabled     = optional(bool)
+      AutoMinorVersionUpgrade     = optional(bool)
+
+      # Optional integers
+      SnapshotRetentionLimit      = optional(number)
+      ReplicasPerNodeGroup        = optional(number)
+
+      # Optional strings
+      SnapshotWindow              = optional(string)
+      AuthToken                   = optional(string)
+
+      # Optional lists
+      SecurityGroupIds            = optional(list(string))
+
+      # Optional nested list-of-objects
+      LogDeliveryConfigurations   = optional(list(object({
+        LogType         = string
+        DestinationType = string
+        LogFormat       = optional(string)
+        DestinationDetails = object({
+          CloudWatchLogsDetails = object({
+            LogGroup = string
+          })
+        })
+      })))
+
+      # Optional tags
+      Tags = optional(map(string))
+      }))
+      ,[]
+    )
     rds_schedule                    = optional(bool, false)
     redshift_schedule               = optional(bool, false)
     cloudwatch_alarm_schedule       = optional(bool, false)
     transfer_schedule               = optional(bool, false)
     tags                            = optional(map(any), null)
   }))
+
   default = {}
 }

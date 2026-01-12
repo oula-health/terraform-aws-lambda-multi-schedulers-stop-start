@@ -25,6 +25,9 @@ module "scheduler" {
   ecs_schedule                    = each.value.ecs_schedule
   scheduler_schedule              = each.value.scheduler_schedule
   scheduler_schedule_names        = each.value.scheduler_schedule_names
+  elasticache_valkey_schedule     = each.value.elasticache_valkey_schedule
+  elasticache_valkey_replication_groups_to_delete     = each.value.elasticache_valkey_replication_groups_to_delete
+  elasticache_valkey_replication_groups_to_create     = each.value.elasticache_valkey_replication_groups_to_create
   rds_schedule                    = each.value.rds_schedule
   redshift_schedule               = each.value.redshift_schedule
   cloudwatch_alarm_schedule       = each.value.cloudwatch_alarm_schedule
