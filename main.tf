@@ -28,6 +28,9 @@ module "scheduler" {
   elasticache_valkey_schedule     = each.value.elasticache_valkey_schedule
   elasticache_valkey_replication_groups_to_delete     = each.value.elasticache_valkey_replication_groups_to_delete
   elasticache_valkey_replication_groups_to_create     = each.value.elasticache_valkey_replication_groups_to_create
+  elb_schedule     = each.value.elb_schedule
+  elb_to_delete     = each.value.elb_to_delete
+  elb_to_create     = each.value.elb_to_create
   rds_schedule                    = each.value.rds_schedule
   redshift_schedule               = each.value.redshift_schedule
   cloudwatch_alarm_schedule       = each.value.cloudwatch_alarm_schedule

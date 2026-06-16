@@ -84,6 +84,70 @@ variable "schedulers" {
       }))
       ,[]
     )
+    elb_schedule     = optional(bool, false)
+    elb_to_delete = optional(list(string), [])
+    elb_to_create = optional(
+      list(object({
+        # Required strings
+        Name          = string
+        Subnets               = list(string)
+        SecurityGroups                      = list(string)
+
+        Attributes = optional(list(map(string)))
+        OldAlarmPattern = optional(string)
+
+      Listeners         = optional(list(object({
+        Protocol = string
+        Port = string
+        SslPolicy = optional(string)
+        Certificates = optional(list(object({
+          CertificateArn = optional(string)
+          IsDefault = optional(string)
+        })))
+        DefaultActions = list(object({
+          Type = string
+          RedirectConfig = optional(object({
+            Protocol = optional(string)
+            Host = optional(string)
+            Path = optional(string)
+            Port = optional(string)
+            Query = optional(string)
+            StatusCode = optional(string)
+          }))
+          FixedResponseConfig = optional(object({
+            MessageBody = optional(string)
+            StatusCode = optional(string)
+            ContentType = optional(string)
+          }))
+        }))
+        Rules = optional(list(object({
+          Priority = string
+          Conditions = list(object({
+            Field = string
+            Values = optional(list(string))
+            SourceIpConfig = optional(object({Values = list(string)}))
+          }))
+          Actions = list(object({
+            Type = string
+            TargetGroupArn = string
+          }))
+          Tags = optional(list(map(string)))
+        })))
+        Tags = optional(list(map(string)))
+        })))
+
+        Route53Domains = optional(list(object({
+          HostedZoneId = string
+          DomainName = string
+          RecordType = string
+     })))
+
+
+     # Optional tags
+     Tags = optional(map(string))
+    }))
+    )
+
     rds_schedule                    = optional(bool, false)
     redshift_schedule               = optional(bool, false)
     cloudwatch_alarm_schedule       = optional(bool, false)
